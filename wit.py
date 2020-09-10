@@ -332,24 +332,23 @@ def graph2():
             with open(head_check_if_branch_in, 'r') as check_if_branch:
                 ln = check_if_branch.readlines()
                 the_head_branch = ln[0].split('=')[1]
-            if ', ' in the_head_branch:
-                splits = the_head_branch.split(', ')
-                tree.append((head, splits[0]))
-                if len(splits) > 1:
-                    tree.append((head, splits[1]))
-                while the_head_branch != 'None':
-                    for i in splits:
-                        if i != 'None':
-                            head_check_if_branch_in = os.path.join(third_directory, i + '.txt')
-                            with open(head_check_if_branch_in, 'r') as check_if_branch:
-                                ln = check_if_branch.readlines()
-                                the_head_branch = ln[0].split('=')[1]
-                                splits = the_head_branch.split(', ')
-                            if ', ' in the_head_branch:
-                                tree.append((i, splits[0]))
-                                tree.append((i, splits[1]))
-                            else:
-                                tree.append((i, the_head_branch))
+            splits = the_head_branch.split(', ')
+            tree.append((head, splits[0]))
+            if len(splits) > 1:
+                tree.append((head, splits[1]))
+            while the_head_branch != 'None':
+                for i in splits:
+                    if i != 'None':
+                        head_check_if_branch_in = os.path.join(third_directory, i + '.txt')
+                        with open(head_check_if_branch_in, 'r') as check_if_branch:
+                            ln = check_if_branch.readlines()
+                            the_head_branch = ln[0].split('=')[1]
+                            splits = the_head_branch.split(', ')
+                        if ', ' in the_head_branch:
+                            tree.append((i, splits[0]))
+                            tree.append((i, splits[1]))
+                        else:
+                            tree.append((i, the_head_branch))
             for i in tree:
                 if 'None' not in i:
                     built_graph.append(i)
